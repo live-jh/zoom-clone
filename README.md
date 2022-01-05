@@ -88,11 +88,28 @@
 - `$ npm i express`
 - `$ npm i pug`
 
-### server 파일 설정
+### ws (Node.js Websocket Library) 설치
+- `$ npm i ws`
+
+### server.js 설정
 
 ```javascript
 import express from "express";
 const app = express();
-console.log("server run success, port is 3000");
-app.listen(3000);
+
+const server = http.createServer(app);
+const wss = new WebSocket.Server({server});
+
+const handleConnection =(socket) => {
+  console.log(socket);
+}
+
+wss.on("connection", handleConnection);
+server.listen(3000, handleListen);
+
+```
+
+### app.js 설정
+```javascript
+const socket = new WebSocket(`ws://${window.location.host}`);
 ```
