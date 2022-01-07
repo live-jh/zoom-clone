@@ -21,11 +21,10 @@ const sockets = []; // 빈 리스트
 
 wss.on("connection", (socket) => {
     sockets.push(socket);
+    socket["nickname"] = "anonymous";
+    console.log(socket)
     console.log("connected to Browser ✔");
-    socket.send("hello world");
     socket.on("close", () => (console.log("disconnected to Browser 𝘟")));
-    socket.on("message", (message) => {
-        sockets.forEach((aSockect) => aSockect.send(message.toString('utf8')));
-    });
+    socket.on("message", (message) => onSocketMessage(socket, sockets, message));
 });
 server.listen(3000, handleListen);
